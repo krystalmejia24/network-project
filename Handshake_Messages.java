@@ -6,23 +6,25 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 
 public class Handshake_Messages implements Serializable{
-
-	/**
-	 *
-	 */
+	private int peerId;
 	private static final long serialVersionUID = 1L;
 
+	public Handshake_Messages() {}
+
+	public Handshake_Messages(int peerId) {
+		this.peerId = peerId;
+	}
 
 	public void Send_Message(DataInputStream inStream, DataOutputStream outStream) throws IOException
     {
-          BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+          BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
           String sent;
           do
           {
               sent=br.readLine();
               outStream.writeUTF(sent);
               outStream.flush();
-              System.out.println("Server Message:"+inStream.readUTF());
+              System.out.println("Server Message: " + inStream.readUTF());
           }
           while(!sent.equals("stop"));
    }
@@ -31,7 +33,7 @@ public class Handshake_Messages implements Serializable{
 		do
         {
             str=inStream.readUTF();
-            System.out.println("Client Message:"+str);
+            System.out.println("Client " + peerId + " Message:" + str);
             BufferedReader br=new BufferedReader(new   InputStreamReader(System.in));
             s1=br.readLine();
             outStream.writeUTF(s1);
@@ -39,5 +41,9 @@ public class Handshake_Messages implements Serializable{
         }
         while(!s1.equals("bye"));
 	}
+
+	public int getPeerId() {
+        return this.peerId;
+  }
 
 }
