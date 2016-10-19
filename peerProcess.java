@@ -57,5 +57,17 @@ public class peerProcess {
                 System.out.println(e);
             }
         }
+
+        // testing event logger to make sure it works
+        PeerLogger peerLogger = new PeerLogger(peerId);
+        peerLogger.chokingMsg(1002);
+        peerLogger.tcpConnectionMsg(1002, true);
+        peerLogger.haveMsg(1002, 5);
+        peerLogger.downloadCompletedMsg();
+
+        Server_Socket peerProc = new Server_Socket(peerId, address, port, hasFile, peerInfo.getPeerInfo(), cProp);
+        Thread t = new Thread (peerProc);
+        t.setName("peerProcess-" + peerId);
+        t.start();
     }
 }

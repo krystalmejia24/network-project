@@ -15,7 +15,6 @@ public class ConnectionThread extends Thread {
 
   public void run() {
     Thread.currentThread().setName("Thread-" + localPeer);
-    System.out.println(Thread.currentThread());
     try {
       inStream	= new DataInputStream(s.getInputStream());
       outStream = new DataOutputStream(s.getOutputStream());
